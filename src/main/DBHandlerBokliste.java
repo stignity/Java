@@ -79,9 +79,25 @@ public class DBHandlerBokliste {
 			return rowsAffected;
 		}
 		else {
-			return 0;
+			return 0; 
 		}
 		
+	}
+	
+	public int deleteTittel(String tittel) throws SQLException {
+		prepstmtDeleteTittel = con.prepareStatement(
+				"DELETE FROM " + tableName + " " +
+				"WHERE tittel = ?");
+		
+		prepstmtDeleteForfatter.setString(1, tittel);
+		
+		if(prepstmtDeleteForfatter != null) {
+			int rowsAffected = prepstmtDeleteTittel.executeUpdate();
+			return rowsAffected;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public void close() throws SQLException {
