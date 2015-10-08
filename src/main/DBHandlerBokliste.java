@@ -23,7 +23,7 @@ public class DBHandlerBokliste {
 		db = new ConnectToDB("mysql.nith.no", "test", username, password);
 		con = db.getConnection();
 	}
-	
+
 	public int updateTittel(String nyTittel, String tittel) throws SQLException {
 		prepstmtUpdateTittel = con.prepareStatement(
 				"UPDATE " + tableName + " " +

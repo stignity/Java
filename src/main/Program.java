@@ -9,8 +9,10 @@ public class Program {
 			
 			DBHandlerBokliste dbhandler = new DBHandlerBokliste(args[0], args[1]);
 			
-			//dbhandler.updateTittel("Love Story", "Love story");
-			dbhandler.updateForfatter("Vog Magnus", "VogM");
+			System.out.println(dbhandler.updateTittel("Love Story", "Love kake"));
+			//dbhandler.updateForfatter("Vog Magnus", "VogM");
+			
+			dbhandler.close();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
