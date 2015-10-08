@@ -1,6 +1,7 @@
  package main;
 
 import java.sql.*;
+import java.util.Scanner;
 
 import sql.ConnectToDB;
 
@@ -18,6 +19,11 @@ public class DBHandlerBokliste {
 	private PreparedStatement prepstmtInserRow;
 	private PreparedStatement prepstmtGetTable;
 	private PreparedStatement prepstmtGetRow;
+	
+	private Statement stmt;
+	private ResultSet rs;
+	
+	private Scanner scan = new Scanner(System.in);
 	
 	public DBHandlerBokliste(String username, String password) throws SQLException {
 		db = new ConnectToDB("mysql.nith.no", "test", username, password);
@@ -59,6 +65,23 @@ public class DBHandlerBokliste {
 		else {
 			return 0;
 		}
+	}
+	
+	public int deleteForfatter(String forfatter) throws SQLException {
+		prepstmtDeleteForfatter = con.prepareStatement(
+				"DELETE FROM " + tableName + " " +
+				"WHERE forfatter = ?");
+		
+		prepstmtDeleteForfatter.setString(1, forfatter);
+		
+		if(prepstmtDeleteForfatter != null) {
+			int rowsAffected = prepstmtDeleteForfatter.executeUpdate();
+			return rowsAffected;
+		}
+		else {
+			return 0;
+		}
+		
 	}
 	
 	public void close() throws SQLException {
