@@ -16,7 +16,7 @@ public class DBHandlerBokliste {
 	private PreparedStatement prepstmtUpdateForfatter;
 	private PreparedStatement prepstmtDeleteForfatter;
 	private PreparedStatement prepstmtDeleteTittel;
-	private PreparedStatement prepstmtInserRow;
+	private PreparedStatement prepstmtInsertRow;
 	private PreparedStatement prepstmtGetTable;
 	private PreparedStatement prepstmtGetRow;
 	
@@ -93,6 +93,24 @@ public class DBHandlerBokliste {
 		
 		if(prepstmtDeleteForfatter != null) {
 			int rowsAffected = prepstmtDeleteTittel.executeUpdate();
+			return rowsAffected;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	public int insertRow(String isbn, String forfatter, String tittel) throws SQLException {
+		prepstmtInsertRow = con.prepareStatement(
+				"INSERT INTO " + tableName + " " +
+				"VALUES(?, ?, ?)");
+		
+		prepstmtInsertRow.setString(1, isbn);
+		prepstmtInsertRow.setString(2, forfatter);
+		prepstmtInsertRow.setString(3, tittel);
+		
+		if(prepstmtInsertRow != null) {
+			int rowsAffected = prepstmtInsertRow.executeUpdate();
 			return rowsAffected;
 		}
 		else {
