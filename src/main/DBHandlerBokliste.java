@@ -1,4 +1,4 @@
-package main;
+ package main;
 
 import java.sql.*;
 
@@ -29,6 +29,7 @@ public class DBHandlerBokliste {
 				"UPDATE " + tableName + " " +
 				"SET tittel = ? " +
 				"WHERE tittel = ?");
+		
 		prepstmtUpdateTittel.setString(1, nyTittel);
 		prepstmtUpdateTittel.setString(2, tittel);
 		
@@ -40,7 +41,24 @@ public class DBHandlerBokliste {
 			return 0;
 		}
 		
+	}
+	
+	public int updateForfatter(String nyForfatter, String forfatter) throws SQLException {
+		prepstmtUpdateForfatter = con.prepareStatement(
+				"UPDATE " + tableName + " " + 
+				"SET forfatter = ? " +
+				"WHERE forfatter = ?");
 		
+		prepstmtUpdateForfatter.setString(1, nyForfatter);
+		prepstmtUpdateForfatter.setString(2, forfatter);
+		
+		if(prepstmtUpdateForfatter != null) {
+			int rowsAffected = prepstmtUpdateForfatter.executeUpdate();
+			return rowsAffected;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	public void close() throws SQLException {
