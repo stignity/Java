@@ -1,7 +1,11 @@
  package main;
 
-import java.sql.*;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import sql.ConnectToDB;
 
@@ -17,13 +21,11 @@ public class DBHandlerBokliste {
 	private PreparedStatement prepstmtDeleteForfatter;
 	private PreparedStatement prepstmtDeleteTittel;
 	private PreparedStatement prepstmtInsertRow;
-	private PreparedStatement prepstmtGetTable;
-	private PreparedStatement prepstmtGetRow;
+	//private PreparedStatement prepstmtGetTable;
+	//private PreparedStatement prepstmtGetRow;
 	
 	private Statement stmt;
 	private ResultSet rs;
-	
-	private Scanner scan = new Scanner(System.in);
 	
 	public DBHandlerBokliste(String username, String password) throws SQLException {
 		db = new ConnectToDB("mysql.nith.no", "test", username, password);
@@ -116,6 +118,40 @@ public class DBHandlerBokliste {
 		else {
 			return 0;
 		}
+	}
+
+	//Need to make this pretty!!! It's very ugly :(
+	public ArrayList<String> getTable() throws SQLException {
+		
+		ArrayList<String> table = new ArrayList<String>();
+		
+		stmt = con.createStatement();
+		rs = stmt.executeQuery("SELECT * FROM " + tableName);
+		
+		while(rs.next()) {
+			table.add(rs.getString("isbn"));
+			table.add(rs.getString("forfatter"));
+			table.add(rs.getString("tittel"));
+			table.add("\n");
+		}
+		
+		return table;
+		
+	}
+
+	public String getRow(String forfatter, String tittel) throws SQLException {
+		stmt = con.createStatement();
+		rs = stmt.executeQuery(
+				"SELECT " + forfatter + ", " + tittel + "FROM " + tableName);
+		
+		String result = "";
+		
+		while(rs.next()) {
+			result = rs.getString("isbn") + " " + rs.getString("forfatter");
+		}
+		
+		return result;
+		
 	}
 	
 	public void close() throws SQLException {

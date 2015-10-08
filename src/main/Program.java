@@ -14,6 +14,8 @@ public class Program {
 			//System.out.println(dbhandler.deleteForfatter("Valmirrr Memeti") + " row(s) affected!");
 			//System.out.println(dbhandler.deleteTittel("tittel") + " row(s) affected!");
 			//System.out.println(dbhandler.insertRow("isbn", "forfatter", "tittel") + " row(s) affected!");
+			//System.out.println(dbhandler.getTable());
+			System.out.println(dbhandler.getRow("Vog Magnus", "Love Story"));
 			
 			dbhandler.close();
 			
